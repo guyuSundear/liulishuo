@@ -90,6 +90,8 @@ Page({
     j: 1,//帧动画初始图片
     isSpeaking: false,//是否正在说话
     voices: [],//音频数组
+
+    
   },
   //键盘右下角按钮事件
   checkboxChange: function (e) {
