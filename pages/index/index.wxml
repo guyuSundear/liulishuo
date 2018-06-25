@@ -3,10 +3,7 @@
     <input type="text" placeholder="What needs to be done" confirm-hold="true" bindconfirm="input" value="{{valName}}"></input>
   </view>
 
-
-
   <block wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="item">
-
     <view class="listOver">
       <view class="dataList" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="transform:translateX(-{{item.moveLeft + 'px'}})" >
         <checkbox-group bindchange="checkboxChange" id="{{index}}">
@@ -71,3 +68,6 @@
 <view class="record-style">
   <button class="btn-style" bindtouchstart="touchdown" bindtouchend="touchup">按住 录音</button>
 </view>
+
+
+

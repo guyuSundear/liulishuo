@@ -1,4 +1,4 @@
-
+page {height:100%;}
 .contentList .inputInfo input {
   height:4rem;
   line-height:4rem;
@@ -9,7 +9,6 @@
 .dataList {
   padding:0 .8rem;
   box-sizing:border-box;
-  border-top:1px solid #ccc;
   position:relative;
   z-index: 1;
   background-color:#fff;
@@ -42,14 +41,15 @@
     line-height:3.4rem;
     font-size:1.2rem;
     position:absolute;
-    top:0;
+    top:50%;
     right:0;
-    bottom:0;
+    transform:translateY(-50%);
 
 }
 .listOver {
   width:100%;
   position:relative;
+  border-top:1px solid #e6e6e6;
 }
 
 
@@ -85,6 +85,7 @@
 .checkbox text {
   display:block;
   padding-left:3rem;
+  color:#000;
 }
 .checkboxFirst{
   margin-top: 20px;
@@ -217,4 +218,7 @@ checkbox {
   display: flex;
   justify-content: flex-start;
 }
+
+
+
 

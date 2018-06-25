@@ -8,6 +8,7 @@ Page({
       { value: '全面贯彻落实习近平外交思想', moveLeft: 0, checked: false },
       { value: '伟大的航程，离不开思想灯塔的领航。', moveLeft: 0, checked: false },
       { value: '6月22日至23日，中央外事工作会议在京召开，习近平总书记出席会议并发表重要讲话。', moveLeft: 0, checked: true },
+      { value: '6月22日至23日，中央外事工作会议在京召开，习近平总书记出席会议并发表重要讲话。', moveLeft: 0, checked: true },
       { value: '放眼全球，当今世界正处在大发展大变革大调整时期，人类面临的不稳定不确定因素依然很多。', moveLeft: 0, checked: false },
       
       { value: '习近平总书记关于国际形势与中国发展历史阶段的一系列重要论述，', moveLeft: 0, checked: false },
@@ -91,7 +92,7 @@ Page({
     isSpeaking: false,//是否正在说话
     voices: [],//音频数组
 
-    
+    backAmin:false
   },
   //键盘右下角按钮事件
   checkboxChange: function (e) {
@@ -112,82 +113,76 @@ Page({
     });
   },
 
+  longTap: function(e){
+    console.log(e);
+  },
 
-  // touchS: function (e) {
-  //   let that = this;
-  //   // console.log(that.data.items[e.currentTarget.dataset.index]);
-  //   if (e.touches.length == 1) {
-  //     this.setData({
-  //       startX: e.touches[0].clientX
-  //     });
+  touchS: function (e) {
+    let that = this;
+    // console.log(that.data.items[e.currentTarget.dataset.index]);
+    if (e.touches.length == 1) {
+      this.setData({
+        startX: e.touches[0].clientX
+      });
 
-  //   }
+    }
 
-  // },
-  // touchM: function (e) {
-  //   let that = this;
-  //   if (e.touches.length == 1) {
-
-  //     var moveX = e.touches[0].clientX;
+  },
+  touchM: function (e) {
+    let that = this;
+    if (e.touches.length == 1) {
+      var moveX = e.touches[0].clientX;
+      var disX = this.data.startX - moveX;
+      console.log("B"+this.data.items[e.currentTarget.dataset.index].moveLeft)
+      if (this.data.items[e.currentTarget.dataset.index].moveLeft >= 90)
+      {
+        this.data.items[e.currentTarget.dataset.index].moveLeft = disX+90;
+      }
+      else
+      {
+        this.data.items[e.currentTarget.dataset.index].moveLeft = disX;
+      }
       
-  //     var disX = this.data.startX - moveX;
-  //     this.data.items[e.currentTarget.dataset.index].moveLeft = disX;
-  //     // if (moveX > 45) {
-  //     //   this.data.items[e.currentTarget.dataset.index].moveLeft = 90
-  //     // }
-  //     // else {
-  //     //   this.data.items[e.currentTarget.dataset.index].moveLeft = 0
-  //     // }
+      that.setData({
+        items: this.data.items
+      });
+      
+    }
+  },
+ touchE: function (e) {
+   console.log(e);
+    let that = this;
+    if (e.changedTouches.length == 1) {
+      if (that.data.items[e.currentTarget.dataset.index].moveLeft > 90) {
+        that.data.items[e.currentTarget.dataset.index].moveLeft = 90;
+      }
+      else if (this.data.items[e.currentTarget.dataset.index].moveLeft < 90 && this.data.items[e.currentTarget.dataset.index].moveLeft > 45) {
+        that.data.items[e.currentTarget.dataset.index].moveLeft = 90;
+      }
+      else {
+        that.data.items[e.currentTarget.dataset.index].moveLeft = 0;
+      }
+
+      that.setData({
+        items: that.data.items,
+      })
+      that.data.items.forEach(function (currentValue, index, arr){
+
+        if (index != e.currentTarget.dataset.index)
+        {
+          currentValue.moveLeft = 0
+        }
+      })
+
+      this.setData({
+        items: this.data.items
+      });
+
+   }
+
+ },
 
 
-
-  //     that.setData({
-  //       items: this.data.items
-  //     });
-
-
-     
-  //   }
-
-  // },
-  // touchE: function (e) {
-  //   let that = this;
-  //   if (e.changedTouches.length == 1) {
-  //     if (that.data.items[e.currentTarget.dataset.index].moveLeft > 90) {
-  //       that.data.items[e.currentTarget.dataset.index].moveLeft = 90;
-  //       that.setData({
-  //         items: that.data.items
-  //       })
-  //     }
-  //     that.data.items.forEach(function (currentValue, index, arr){
-
-  //       if (index != e.currentTarget.dataset.index)
-  //       {
-  //         currentValue.moveLeft = 0
-  //       }
-  //     })
-
-  //     this.setData({
-  //       items: this.data.items
-  //     });
-
-  //   }
-
-  // },
-
-  // touchM: function (e){
-  //   var setLeft = 0;
-  //   var moveX = e.touches[0].clientX;
-  //   var disX = this.data.startX - moveX;
-  //   if (disX > 90 && disX>45)
-  //   {
-  //     setLeft = 90;
-  //   }
-  //   else
-  //   {
-  //     setLeft = 0;
-  //   }
-  // },
 
   onLoad: function () {
 
