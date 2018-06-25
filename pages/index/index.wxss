@@ -1,0 +1,219 @@
+
+.contentList .inputInfo input {
+  height:4rem;
+  line-height:4rem;
+  font-size:1.4rem;
+  padding:0 1rem;
+}
+
+.dataList {
+  padding:0 .8rem;
+  box-sizing:border-box;
+  border-top:1px solid #ccc;
+  position:relative;
+  z-index: 1;
+  background-color:#fff;
+}
+.dataList label {
+  display:block;
+  font-size:1rem;
+  padding:1rem 0;
+}
+
+.inner{
+    position: absolute;
+    top:0;
+}
+.inner.txt{
+    background-color: #fff;
+    width: 100%;
+    z-index: 5;
+    padding:1rpx;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.inner.del{
+    background-color: #e64340;
+    width:90px;
+    text-align:center;
+    z-index:0;
+    color: #fff;
+    line-height:3.4rem;
+    font-size:1.2rem;
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+
+}
+.listOver {
+  width:100%;
+  position:relative;
+}
+
+
+
+
+.picture{
+  width: 20px;
+  height: 20px;
+  background-color: hotpink;
+  margin-right: 20px;
+}
+.pages{
+   padding:10px;
+}
+.scBoxes{
+  color: lightgray;
+  text-decoration: line-through;
+}
+.viewPorts{
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 2px solid gray;
+}
+
+.ipt {
+ width: 100%;
+}
+.checkbox{
+  display: block;
+  padding-bottom: 20px;
+  position:relative;
+}
+.checkbox text {
+  display:block;
+  padding-left:3rem;
+}
+.checkboxFirst{
+  margin-top: 20px;
+}
+.buttonThree{
+    display: flex;  
+    justify-content:space-between;  
+
+
+}
+.sourchBtn {
+    background-color:#0075b5;
+    color:white;
+}
+
+checkbox {
+
+  position: absolute;
+  left:0;
+  top:50%;
+  transform: translateY(-50%)
+
+
+
+}
+
+.button-stable{
+  margin-left: 10px;
+}
+
+
+.btn {
+  display: -webkit-box;
+  -webkit-box-pack: justify;
+  padding:1rem;
+}
+
+
+
+
+/**index.wxss**/
+.speak-style{
+    position: relative;
+    height: 240rpx;
+    width: 240rpx;
+    border-radius: 20rpx;
+    margin: 50% auto;
+    background: #26A5FF;
+}
+.item-style{
+    margin-top: 30rpx;
+    margin-bottom: 30rpx;
+}
+.text-style{
+    text-align: center;
+
+}
+.record-style{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 120rpx;
+    width: 100%;
+    z-index: 20;
+}
+.btn-style{
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.sound-style{
+  position: absolute;
+  width: 74rpx;
+  height:150rpx;
+  margin-top: 45rpx;
+  margin-left: 83rpx;
+}
+
+
+.board {
+  overflow: hidden;
+  border-bottom: 2rpx solid #26A5FF;  
+}
+/*列布局*/
+.cell{
+    display: flex;
+    margin: 20rpx;
+}
+.cell-hd{
+    margin-left: 10rpx;
+    color: #885A38;
+}
+.cell .cell-bd{
+    flex:1;
+    position: relative;
+   
+}
+/**只显示一行*/
+.date{
+    font-size: 30rpx;
+    text-overflow: ellipsis; 
+    white-space:nowrap;
+    overflow:hidden; 
+}
+.board{
+  border-bottom: none;
+}
+
+
+.btnText {
+  display: -webkit-box;
+  padding:0 1rem;
+  padding-bottom:10rem;
+}
+.btnText .listName {
+  margin-right:1rem;
+}
+.btnText .btnList {
+  margin-right:.8rem;
+}
+
+
+.imgSize{
+  width: 30px;
+  height: 30px;
+  background-color: 1afa29;
+}
+
+.recordFile{
+  display: flex;
+  justify-content: flex-start;
+}

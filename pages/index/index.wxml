@@ -1,0 +1,70 @@
+<view class="contentList">
+  <view class="inputInfo">
+    <input type="text" placeholder="What needs to be done" confirm-hold="true" bindconfirm="input" value="{{valName}}"></input>
+  </view>
+
+  <block wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="item">
+    <view class="listOver">
+      <view class="dataList" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="transform:translateX(-{{item.moveLeft + 'px'}})" >
+        <checkbox-group bindchange="checkboxChange" id="{{index}}">
+          <label class="checkbox">
+            <checkbox value="{{item.name}}" checked="{{item.checked}}"/>
+            <text>{{item.value}}</text>
+          </label>
+        </checkbox-group>
+        
+      </view>
+      <view data-index="{{index}}" bindtap="delItem" class="inner del">删除</view>
+    </view>
+  </block>
+  <block wx:for="{{voices}}" wx:key="key">
+    <view class="listOver">
+      <view class="dataList">
+        <scroll-view>
+          <view wx:if="{{voices}}" class="common-list" style="margin-bottom:120rpx;">
+            <block>
+              <view class="board">
+                <view class="cell">
+                  <view class="cell-bd" data-key="{{item.filePath}}" bindtap="gotoPlay">
+                
+                      <view class='recordFile'>
+                        <!-- <checkbox value="{{itemInfo.value}}" checked="{{itemInfo.checked}}" /> -->
+                        <image src='./image/play.png' alt='' class='imgSize'></image>
+                        <!-- <view class="date">{{item.createTime}}</view> -->
+                        <view class="date">{{item.size}}KB</view>
+                      </view>
+                  </view>
+
+                </view>
+              </view>
+            </block>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </block>
+
+  <!-- <view class="btn">
+    <view><button bindtap="ywc">已完成</button></view>
+    <view><button bindtap="all">所有</button></view>
+    <view><button bindtap="wwc">未完成</button></view>
+  </view> -->
+  <view class="btnText">
+    <view class="listName">{{items.length}} items left</view>
+    <view class="btnList" bindtap="all">All</view>
+    <view class="btnList" bindtap="ywc">Active</view>
+    <view class="btnList" bindtap="wwc">Complated</view>
+  </view>
+</view>
+
+
+<view wx:if="{{isSpeaking}}" class="speak-style">
+  <image class="sound-style" src="image/voice_icon_speech_sound_1.png"></image>
+  <image wx:if="{{j==2}}" class="sound-style" src="image/voice_icon_speech_sound_2.png"></image>
+  <image wx:if="{{j==3}}" class="sound-style" src="image/voice_icon_speech_sound_3.png"></image>
+  <image wx:if="{{j==4}}" class="sound-style" src="image/voice_icon_speech_sound_4.png"></image>
+  <image wx:if="{{j==5}}" class="sound-style" src="image/voice_icon_speech_sound_5.png"></image>
+</view>
+<view class="record-style">
+  <button class="btn-style" bindtouchstart="touchdown" bindtouchend="touchup">按住 录音</button>
+</view>

@@ -1,0 +1,51 @@
+/* pages/todo/todo.wxss */
+.picture{
+  width: 20px;
+  height: 20px;
+  background-color: hotpink;
+  margin-right: 20px;
+}
+.pages{
+   padding:10px;
+}
+.scBoxes{
+  color: lightgray;
+  text-decoration: line-through;
+}
+.viewPorts{
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 2px solid gray;
+}
+
+.ipt {
+ width: 100%;
+}
+.checkbox{
+  display: block;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid lightgray;
+}
+.checkboxFirst{
+  margin-top: 20px;
+}
+.buttonThree{
+    display: flex;  
+    justify-content:space-between;  
+
+
+}
+.sourchBtn {
+    background-color:#0075b5;
+    color:white;
+}
+
+checkbox {
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.button-stable{
+  margin-left: 10px;
+}

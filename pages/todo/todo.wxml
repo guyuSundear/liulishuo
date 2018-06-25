@@ -1,0 +1,25 @@
+<!--pages/todo/todo.wxml-->
+<view class='pages'>
+  <view class='viewPorts'>
+    <image src='../../images/arrow-left.png' class='picture' alt=''></image>
+    <input type='text' placeholder='What needs to be done?' class='ipt'></input>
+  </view>
+  <view>
+    <checkbox-group bindchange="checkboxChange">
+      <label class="checkbox checkboxFirst {{svBox?'scBoxes':''}}" wx:if="{{showView}}" wx:for="{{items}}" wx:key="key" wx:for-item="itemInfo" wx:for-index="itemIndex" >
+        <checkbox value="{{itemInfo.value}}" checked="{{itemInfo.checked}}" />{{itemInfo.value}}
+      </label>
+    </checkbox-group>
+  </view>
+  <view class='bottonItem'>
+    <view>
+     {{itemNum}} items left
+    </view>
+    <view>
+       <view class="buttonThree">
+        <view class="button button-stable  {{leadIndex==item.id?'sourchBtn':''}}" wx:for="{{pickList}}" wx:key="key" bindtap='pick' data-id="{{item.id}}">{{item.title}}</view>
+      </view>
+    </view>
+  </view>
+
+</view>
