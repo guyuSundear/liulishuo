@@ -1,15 +1,8 @@
 <view class="contentList">
-
-  <!-- <movable-area style="height: 200px; width: 200px; background: red;">
-      <movable-view style="height: 50px; width: 50px; background: blue;" direction="all"></movable-view>
-      <movable-view style="height: 50px; width: 50px; background: blue;" direction="all"></movable-view>
-  </movable-area> -->
-
-
-<scroll-view scroll-y style="height:{{scrollHeight}}px;" scroll-into-view="{{scrollToView}}">
+  <scroll-view scroll-y style="height:{{scrollHeight}}px;" scroll-into-view="{{scrollToView}}">
     <block wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="item">
-      <view class="listOver" bindtouchstart="touchS_0" bindtouchmove="touchM_0" bindtouchend="touchE_0" style="transform:translateY({{touchPageY + 'px'}})">
-        <view id="view{{index}}" class="dataList" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" bindtouchcancel='touchC' data-index="{{index}}" style="transform:translateX(-{{item.moveLeft + 'px'}})">
+      <view class="listOver {{item.cssShow?'addOf':''}}" bindtouchstart="touchS_0" bindtouchmove="touchM_0" bindtouchend="touchE_0" style="transform:translateY({{touchPageY + 'px'}})">
+        <view id="view{{index}}" class="dataList {{item.dhisShow?'dh_1':''}} {{item.dhisHiddle?'dh_2':''}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" bindtouchcancel='touchC' data-index="{{index}}" style="transform:translateX(-{{item.moveLeft + 'px'}})">
           <checkbox-group bindchange="checkboxChange" id="{{index}}">
 
             <view wx:if="{{!item.isVoice}}" class="common-list">
@@ -18,31 +11,38 @@
                 <text>{{item.value}} （{{item.pubDate}}）</text>
               </label>
             </view>
-            <view wx:else class="common-list">
+            <view wx:if="{{item.isVoice}}" class="common-list">
               <view class="cell-bd">
                 <view class='recordFile'>
-                   <checkbox value="{{item.name}}" checked="{{item.checked}}" class="voice" />
-                  <image src='./image/play.png' alt='' bindtap="gotoPlay" data-key="{{item.value}}" class='imgSize'></image>
+                  <checkbox value="{{item.name}}" checked="{{item.checked}}" class="voice" />
+
+                  <image src='image/play.png' alt='' bindtap="gotoPlay" id="voice{{index}}" data-key="{{item.src}}" class='imgSize'></image>
                   <view class="date"> 时长 {{item.voiceLength}}s</view>
-                  <view class="date"> （{{item.pubDate}}）</view>
                 </view>
+                <view class="date dates"> （{{item.pubDate}}）</view>
+
               </view>
             </view>
           </checkbox-group>
 
         </view>
-        <view data-index="{{index}}" bindtap="delItem" class="inner del" id="{{index}}">删除</view>
+        <view data-index="{{index}}" bindtap="delItem" class="inner del" id="{{item.id}}">删除</view>
       </view>
 
     </block>
-</scroll-view>
+  </scroll-view>
+
+  <view class='proText' style="{{progress==''?'display:none':'display:flex'}}">
+    <progress class='progresses' style='height:15px;width:100%;margin-top:2.5px;' percent='{{progress}}' active-mode="forwards"></progress>
+    <text style='font-size:0.8rem'>{{val}}</text>
+  </view>
 
 
   <view class="btnText">
     <!-- <view class="listName">{{items.length}} items left</view> -->
-    <view class="btnList" bindtap="all">全部</view>
-    <view class="btnList" bindtap="ywc">已完成({{finish}})</view>
-    <view class="btnList" bindtap="wwc">未完成({{unFinish}})</view>
+    <view class="btnList {{catogray==0?'active':''}}" bindtap="all">全部</view>
+    <view class="btnList {{catogray==1?'active':''}}" bindtap="ywc">已完成({{finish}})</view>
+    <view class="btnList {{catogray==2?'active':''}}" bindtap="wwc">未完成({{unFinish}})</view>
   </view>
 </view>
 
@@ -55,24 +55,28 @@
   <image wx:if="{{j==5}}" class="sound-style" src="image/voice_icon_speech_sound_5.png"></image>
 </view>
 
-<view class="flex-wrp" style="position:fixed;bottom:0;width:100%;">
-     <view class="flex-item bc_green">
-       <button class="btn-style" bindtap='changes'>
-          <image src='image/14.png' class='picture1' alt='' style="width:100%;height:2.5rem;"></image>
-       </button>
-    </view>
-    <view class="flex-item bc_red" wx:if="{{isShow}}">
-       <form bindsubmit="bindFormSubmit">
-          <input placeholder="What needs to be done" name="textarea" style="height:50px;" class="textareaInput" confirm-hold="true" bindconfirm="input" value="{{valName}}"/>
-          <!-- <button form-type="submit"> 提交 </button> -->
-       </form>
-    </view>
- 
-   
-    <view class="flex-item bc_red" wx:if="{{!isShow}}">
-     <button class="btn-style" bindtouchstart="touchdown" bindtouchend="touchup" style="height:50px;color:#888;text-align:center;line-height:2.3rem;">按住 录音
-      </button>
-    </view>
+<view class="flex-wrp" style="position:fixed;bottom:7px;width:100%;height:40px;float:left;">
+  <view class="flex-item bc_green">
+    <button class="btn-style" bindtap='changes' wx:if="{{isHide}}">
+      <image src='image/laba.png' class='picture1' alt='' style="width:40px;height:40px;"></image>
+    </button>
+    <button class="btn-style" bindtap='cha' wx:if="{{!isHide}}">
+      <image src='image/keyword.png' class='picture2' alt='' style="width:40px;height:40px;"></image>
+    </button>
+
+  </view>
+  <view class="flex-item bc_red" wx:if="{{isShow}}">
+    <form bindsubmit="bindFormSubmit">
+      <input placeholder="What needs to be done" name="textarea" style="height:38px;" class="textareaInput" confirm-hold="true" bindconfirm="input" value="{{valName}}" />
+      <!-- <button form-type="submit"> 提交 </button> -->
+    </form>
+  </view>
+
+
+  <view class="flex-item bc_red" wx:if="{{!isShow}}">
+    <button class="btn-style" bindtouchstart="touchdown" bindtouchend="touchup" style="background: #fff;width:100%; height: 40px;border-bottom:1px solid #F4F4F4;margin:0;color:#666;background-color:{{colorBtn}};line-height:40px;font-size:0.9rem;">按住 录音
+    </button>
+  </view>
 </view>
 
-
+<view class="bg" wx:if="{{isShowBg}}"></view>

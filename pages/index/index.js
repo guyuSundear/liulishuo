@@ -2,18 +2,26 @@
 //获取应用实例
 const app = getApp()
 const recorderManager = wx.getRecorderManager()
+const innerAudioContext = wx.createInnerAudioContext()
 
 Page({
   itemCreateTime: '',
   progress: '',
+  colorBtn: 'gray',
+  addShow: false,
+  val: '',
+  catogray:0,
   data: {
+    isShowBg: true,
+    isHide: true,
     items: [{
-      value: '顽强的伊朗90分钟后依然对葡萄牙呈围攻之势，在点球扳平比分后，他们本有机会绝杀逆转比分晋级，但塔雷米近在咫尺的射门偏出，葬送了伊朗最后的努力和跻身16强的梦想。',
+        value: '顽强的伊朗90分钟后依然对葡萄牙呈围攻之势，在点球扳平比分后，他们本有机会绝杀逆转比分晋级，但塔雷米近在咫尺的射门偏出，葬送了伊朗最后的努力和跻身16强的梦想。',
         moveLeft: 0,
         checked: false,
         isVoice: false,
-        pubDate: dateFormat(new Date(),'yyyy-MM-dd hh:mm'),
+        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
         voiceLength: 0,
+
         size: 0
       },
       {
@@ -29,9 +37,10 @@ Page({
         value: '6月22日至23日，中央外事工作会议在京召开，习近平总书记出席会议并发表重要讲话。',
         moveLeft: 0,
         checked: true,
-        isVoice: false,
+        isVoice: true,
+        src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
         pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-        voiceLength: 0,
+        voiceLength: '00:06:32',
         size: 0
       }, {
         value: '全面贯彻落实习近平外交思想',
@@ -49,6 +58,61 @@ Page({
         isVoice: false,
         pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
         voiceLength: 0,
+        size: 0
+      },
+      {
+        value: '6月22日至23日，中央外事工作会议在京召开，习近平总书记出席会议并发表重要讲话。',
+        moveLeft: 0,
+        checked: true,
+        isVoice: true,
+        src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
+        voiceLength: '00:06:32',
+        size: 0
+      }, {
+        value: '全面贯彻落实习近平外交思想',
+        moveLeft: 0,
+        checked: false,
+        isVoice: true,
+        src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
+        voiceLength: '00:06:32',
+        size: 0
+      },
+      {
+        value: '伟大的航程，离不开思想灯塔的领航。',
+        moveLeft: 0,
+        checked: false,
+        isVoice: false,
+        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
+        voiceLength: 0,
+        size: 0
+      },
+      {
+        value: '6月22日至23日，中央外事工作会议在京召开，习近平总书记出席会议并发表重要讲话。',
+        moveLeft: 0,
+        checked: true,
+        isVoice: false,
+        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
+        voiceLength: 0,
+        size: 0
+      }, {
+        value: '全面贯彻落实习近平外交思想',
+        moveLeft: 0,
+        checked: false,
+        isVoice: false,
+        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
+        voiceLength: 0,
+        size: 0
+      },
+      {
+        value: '伟大的航程，离不开思想灯塔的领航。',
+        moveLeft: 0,
+        checked: false,
+        isVoice: true,
+        src: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
+        voiceLength: '00:06:32',
         size: 0
       },
       {
@@ -98,9 +162,9 @@ Page({
         value: '伟大的航程，离不开思想灯塔的领航。',
         moveLeft: 0,
         checked: false,
-        isVoice: false,
+        isVoice: true,
         pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-        voiceLength: 0,
+        voiceLength: '00:06:32',
         size: 0
       },
       {
@@ -115,105 +179,9 @@ Page({
         value: '全面贯彻落实习近平外交思想',
         moveLeft: 0,
         checked: false,
-        isVoice: false,
+        isVoice: true,
         pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-        voiceLength: 0,
-        size: 0
-      },
-      {
-        value: '伟大的航程，离不开思想灯塔的领航。',
-        moveLeft: 0,
-        checked: false,
-        isVoice: false,
-        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-        voiceLength: 0,
-        size: 0
-      },
-      {
-        value: '6月22日至23日，中央外事工作会议在京召开，习近平总书记出席会议并发表重要讲话。',
-        moveLeft: 0,
-        checked: true,
-        isVoice: false,
-        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-        voiceLength: 0,
-        size: 0
-      }, {
-        value: '全面贯彻落实习近平外交思想',
-        moveLeft: 0,
-        checked: false,
-        isVoice: false,
-        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-        voiceLength: 0,
-        size: 0
-      },
-      {
-        value: '伟大的航程，离不开思想灯塔的领航。',
-        moveLeft: 0,
-        checked: false,
-        isVoice: false,
-        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-        voiceLength: 0,
-        size: 0
-      },
-      {
-        value: '6月22日至23日，中央外事工作会议在京召开，习近平总书记出席会议并发表重要讲话。',
-        moveLeft: 0,
-        checked: true,
-        isVoice: false,
-        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-        voiceLength: 0,
-        size: 0
-      }, {
-        value: '全面贯彻落实习近平外交思想',
-        moveLeft: 0,
-        checked: false,
-        isVoice: false,
-        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-        voiceLength: 0,
-        size: 0
-      },
-      {
-        value: '伟大的航程，离不开思想灯塔的领航。',
-        moveLeft: 0,
-        checked: false,
-        isVoice: false,
-        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-        voiceLength: 0,
-        size: 0
-      },
-      {
-        value: '6月22日至23日，中央外事工作会议在京召开，习近平总书记出席会议并发表重要讲话。',
-        moveLeft: 0,
-        checked: true,
-        isVoice: false,
-        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-        voiceLength: 0,
-        size: 0
-      }, {
-        value: '全面贯彻落实习近平外交思想',
-        moveLeft: 0,
-        checked: false,
-        isVoice: false,
-        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-        voiceLength: 0,
-        size: 0
-      },
-      {
-        value: '伟大的航程，离不开思想灯塔的领航。',
-        moveLeft: 0,
-        checked: false,
-        isVoice: false,
-        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-        voiceLength: 0,
-        size: 0
-      },
-      {
-        value: '6月22日至23日，中央外事工作会议在京召开，习近平总书记出席会议并发表重要讲话。',
-        moveLeft: 0,
-        checked: true,
-        isVoice: false,
-        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-        voiceLength: 0,
+        voiceLength: '00:06:32',
         size: 0
       },
       {
@@ -310,6 +278,50 @@ Page({
         checked: false,
         isVoice: false,
         pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
+        voiceLength: '00:06:32',
+        size: 0
+      },
+      {
+        value: '6月22日至23日，中央外事工作会议在京召开，习近平总书记出席会议并发表重要讲话。',
+        moveLeft: 0,
+        checked: true,
+        isVoice: false,
+        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
+        voiceLength: 0,
+        size: 0
+      }, {
+        value: '全面贯彻落实习近平外交思想',
+        moveLeft: 0,
+        checked: false,
+        isVoice: false,
+        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
+        voiceLength: 0,
+        size: 0
+      },
+      {
+        value: '伟大的航程，离不开思想灯塔的领航。',
+        moveLeft: 0,
+        checked: false,
+        isVoice: false,
+        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
+        voiceLength: '00:06:32',
+        size: 0
+      },
+      {
+        value: '6月22日至23日，中央外事工作会议在京召开，习近平总书记出席会议并发表重要讲话。',
+        moveLeft: 0,
+        checked: true,
+        isVoice: false,
+        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
+        voiceLength: '00:06:32',
+        size: 0
+      },
+      {
+        value: '伟大的航程，离不开思想灯塔的领航。',
+        moveLeft: 0,
+        checked: false,
+        isVoice: false,
+        pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
         voiceLength: 0,
         size: 0
       },
@@ -371,7 +383,7 @@ Page({
         checked: false,
         isVoice: false,
         pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-        voiceLength: 0,
+        voiceLength: '00:06:32',
         size: 0
       },
       {
@@ -442,10 +454,10 @@ Page({
     allData: [],
     wancheng: [],
     weiwancheng: [],
-
+    allClick: false,
     delBtnWidth: 180, //删除按钮宽度单位（rpx）
-    scrollHeight:500,
-    scrollToView:'view0',
+    scrollHeight: 500,
+    scrollToView: 'view0',
     list: [],
     showView: true,
     svBox: false,
@@ -453,8 +465,8 @@ Page({
     itemNum: 1,
     currentMoveLeft: 0,
     startRecordTime: new Date(),
-    finish:0,
-    unFinish:0,
+    finish: 0,
+    unFinish: 0,
     pickList: [{
         "id": 0,
         "title": "All"
@@ -478,35 +490,76 @@ Page({
     voices: [], //音频数组
 
     backAmin: false,
-    isShow: true
+    isShow: true,
+    poster: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
+    src: [
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+      'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
+    ],
   },
   //复选框事件
   checkboxChange: function(e) {
     let that = this;
-    var currentTargetID = e.currentTarget.id;
-    that.data.items[currentTargetID].checked = !that.data.items[currentTargetID].checked;
-    that.data.allData.forEach(function (a, b, c) {
-      if (a.id == that.data.items[currentTargetID].id) {
-        a.checked = !a.checked;
-        return;
-      }
+    this.data.items[e.currentTarget.id].checked = !this.data.items[e.currentTarget.id].checked;
+    that.data.items.forEach(function(a, b, c) {
+      that.data.allData.forEach(function(a2, b2, c2) {
+        if (a.id == a2.id) {
+          if (a.checked != a2.checked) {
+            a2.checked = a.checked;
+            return;
+          }
+        }
+      })
     })
-    that.setData({
-      items: that.data.items,
-      allData: that.data.allData
+
+
+
+    this.setData({
+      items: this.data.items,
     });
-    that.fish();
+    this.fish();
+
+    if (this.data.allClick) {
+      this.data.items.splice(e.currentTarget.id, 1)
+      this.setData({
+        items: this.data.items
+      })
+    }
+    console.log(this.data.allClick);
   },
-  input: function (e) {
-    let that = this; 
+  input: function(e) {
+    let that = this;
     that.data.items.push({
-      id: that.data.allData[that.data.allData.length-1].id+1,
+      id: that.data.allData[that.data.allData.length - 1].id + 1,
       value: e.detail.value,
       moveLeft: 0,
       checked: false,
       isVoice: false,
       pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
       voiceLength: 0,
+      timeLength: 6.32,
       size: 0
     });
     that.setData({
@@ -520,10 +573,26 @@ Page({
   //开始触摸
   touchS: function(e) {
     let that = this;
+    this.setData({
+      numLeft: 0
+    });
     if (e.touches.length == 1) {
-      that.data.currentMoveLeft = that.data.items[e.currentTarget.dataset.index].moveLeft;
-      that.setData({
-        startX: e.touches[0].clientX
+      that.data.items[e.currentTarget.dataset.index].dhisShow = false;
+      that.data.items[e.currentTarget.dataset.index].dhisHiddle = false;
+      if (that.data.items[e.currentTarget.dataset.index].moveLeft >= 40) {
+
+        that.data.moveJl = 90;
+        that.data.items[e.currentTarget.dataset.index].moveLeft = 90;
+
+      } else {
+        that.data.moveJl = 0;
+        that.data.items[e.currentTarget.dataset.index].moveLeft = 0;
+      }
+
+
+      this.setData({
+        startX: e.touches[0].clientX,
+        items: that.data.items
       });
 
     }
@@ -534,46 +603,47 @@ Page({
     let that = this;
     if (e.touches.length == 1) {
       var moveX = e.touches[0].clientX;
-      var disX = that.data.startX - moveX;
-      if (that.data.items[e.currentTarget.dataset.index].moveLeft >= 90) {
-        that.data.items[e.currentTarget.dataset.index].moveLeft = disX + 90;
-      } else {
-        that.data.items[e.currentTarget.dataset.index].moveLeft = disX;
-      }
+      var disX = this.data.startX + that.data.moveJl - moveX;
+      this.data.items[e.currentTarget.dataset.index].moveLeft = disX;
+      that.setData({
+        items: that.data.items,
+        numLeft: disX
+      })
+
     }
   },
   //停止触摸
   touchE: function(e) {
     let that = this;
     if (e.changedTouches.length == 1) {
-      if (that.data.items[e.currentTarget.dataset.index].moveLeft > 90) {
-        that.data.currentMoveLeft = 0;
-        that.data.items[e.currentTarget.dataset.index].moveLeft = 90;
-      } else if (that.data.items[e.currentTarget.dataset.index].moveLeft < 90 && that.data.items[e.currentTarget.dataset.index].moveLeft > 45) {
-        that.data.items[e.currentTarget.dataset.index].moveLeft = 90;
+      console.log(that.data.items[e.currentTarget.dataset.index].moveLeft);
+      if (that.data.items[e.currentTarget.dataset.index].moveLeft > 40) {
+        // this.data.currentMoveLeft=0;
+        that.data.items[e.currentTarget.dataset.index].dhisShow = true;
+        this.setData({
+          items: that.data.items
+        })
       } else {
+        that.data.items[e.currentTarget.dataset.index].dhisHiddle = true
+        that.data.moveJl = 0;
         that.data.items[e.currentTarget.dataset.index].moveLeft = 0;
-        that.data.currentMoveLeft = 1;
-      }
-      if (that.data.currentMoveLeft != that.data.items[e.currentTarget.dataset.index].moveLeft) {
         that.setData({
           items: that.data.items
         })
-        that.data.items.forEach(function(currentValue, index, arr) {
-
-          if (index != e.currentTarget.dataset.index) {
-            currentValue.moveLeft = 0
-          }
-        })
-
-        that.setData({
-          items: that.data.items
-        });
       }
+
+
+      // that.data.items.forEach(function (currentValue, index, arr) {
+      //   if (index != e.currentTarget.dataset.index) {
+      //     that.data.items[e.currentTarget.dataset.index].dhisHiddle = true;
+      //     that.data.items[e.currentTarget.dataset.index].dhisShow = false;
+      //   }
+      // });
+
     }
 
   },
-//触摸至屏幕外或被打断
+  //触摸至屏幕外或被打断
   touchC: function(e) {
     let that = this;
     if (that.data.items[e.currentTarget.dataset.index].moveLeft > 90) {
@@ -597,26 +667,49 @@ Page({
   changes: function() {
     var that = this
     that.setData({
-      isShow: !that.data.isShow
+      isShow: !that.data.isShow,
+      isHide: false
     })
   },
+  cha: function() {
+    var that = this
+    that.setData({
+      isShow: !that.data.isShow,
+      isHide: true
+    })
+  },
+
   onLoad: function() {
     var _this = this;
-    var i=0;
-    _this.data.items.forEach(function (a, b, c) {
+    wx.showLoading({
+      title: "加载中",
+      mask: true
+    })
+    setTimeout(function() {
+      wx.hideLoading();
+      _this.setData({
+        isShowBg: false,
+        catogray: 0,
+        
+      })
+    }, 3000);
+    var i = 0;
+    _this.data.items.forEach(function(a, b, c) {
       i++;
-      a.id=i;
-    })   
+      a.id = i;
+      a.picture ="image/play.png";
+      a.cssShow=false;
+    })
     _this.setData({
       items: _this.data.items,
       allData: _this.data.items,
-      scrollHeight: wx.getSystemInfoSync().windowHeight-105 //窗口高度-底部按钮高度
+      scrollHeight: wx.getSystemInfoSync().windowHeight - 105 //窗口高度-底部按钮高度
     })
     _this.fish();
   },
   fish: function(e) {
     let finish = 0;
-    var _this = this;    
+    var _this = this;
     _this.data.allData.forEach(function(a, b, c) {
       if (a.checked) {
         finish++;
@@ -636,13 +729,15 @@ Page({
     })
     this.setData({
       items: arr,
-      scrollToView: 'view0'
+      allClick: true,
+      catogray:1
     });
   },
   all: function(e) {
     this.setData({
       items: this.data.allData,
-      scrollToView: 'view0'
+      allClick: false,
+      catogray:0
     })
   },
   wwc: function(e) {
@@ -654,7 +749,8 @@ Page({
     })
     this.setData({
       items: arr,
-      scrollToView: 'view0'
+      allClick: true,
+      catogray:2
     });
   },
 
@@ -664,12 +760,15 @@ Page({
     speaking.call(this);
     _this.setData({
       isSpeaking: true,
-      startRecordTime: new Date()
+      colorBtn: '#73C24F',
+      startRecordTime: new Date(),
+      progress:''
     });
+    innerAudioContext.stop();
     //开始录音
     recorderManager.start({
       format: 'mp3',
-    })
+    });
 
   },
   //手指抬起
@@ -677,6 +776,8 @@ Page({
     var _this = this;
     _this.setData({
       isSpeaking: false,
+      colorBtn: 'white',
+      // addShow:true
     })
     recorderManager.onStop((res) => {
       //临时路径,下次进入小程序时无法正常使用
@@ -690,12 +791,14 @@ Page({
           var savedFilePath = res.savedFilePath;
           var voice = {
             id: _this.data.allData[_this.data.allData.length - 1].id + 1,
-            value: savedFilePath,
+            // value: savedFilePath,
             moveLeft: 0,
             checked: false,
             isVoice: true,
+            src: savedFilePath,
+            // addShow: false,
             pubDate: dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
-            voiceLength: secondsToHMS(difftime(_this.data.startRecordTime ,new Date())),
+            voiceLength: secondsToHMS(difftime(_this.data.startRecordTime, new Date())),
             size: 0
           };
 
@@ -703,7 +806,7 @@ Page({
           _this.setData({
             allData: _this.data.items,
             items: _this.data.items,
-            scrollToView: 'view' + (_this.data.items.length-1)
+            scrollToView: 'view' + (_this.data.items.length - 1)
           });
           _this.fish();
         }
@@ -719,7 +822,8 @@ Page({
   },
   //点击播放录音
   gotoPlay: function(e) {
-    const innerAudioContext = wx.createInnerAudioContext()
+    var _that=this;
+    innerAudioContext.stop();
     var filePath = e.currentTarget.dataset.key;
     // console.log(filePath);
     //点击开始播放
@@ -728,12 +832,35 @@ Page({
       icon: 'success',
       duration: 1000
     })
+    /*_that.data.items.forEach(function (a, b, c) {
+      if ('voice'+a.id == e.currentTarget.id){
+        a.picture = 'image/stop.png';
+        return;
+      }
+    })
+    _that.data.items.forEach(function (a, b, c) {
+      _that.data.allData.forEach(function (a2, b2, c2) {
+        if (a.id == a2.id) {
+          if (a.picture != a2.picture) {
+            a2.picture = a.picture;
+            return;
+          }
+        }
+      })
+    })
+
+    _that.setData({
+      allData: _that.data.items,
+      items: _that.data.allData,
+    })*/
 
     innerAudioContext.onTimeUpdate(() => {
       var progress = parseInt((innerAudioContext.currentTime / innerAudioContext.duration) * 100)
+      var proTime = Math.ceil(innerAudioContext.duration - innerAudioContext.currentTime)
       var that = this
       that.setData({
-        progress: progress
+        progress: progress,
+        val: secondsToHMS(proTime),
       })
     })
 
@@ -745,8 +872,25 @@ Page({
       // console.log(res.errMsg)
       // console.log(res.errCode)
     })
+
+
+
     innerAudioContext.play();
+    // wx.playVoice({
+    //   filePath: filePath,
+    //   complete: function () {
+    //   }
+    // });
   },
+
+  audioPress: function(e) {
+    var progress = parseInt((e.detail.currentTime / e.detail.duration) * 100)
+    this.setData({
+      audioPress: progress,
+      voiceLength: e.detail.duration
+    })
+  },
+
 
   // 删除按钮事件
   delItem: function(e) {
@@ -756,37 +900,49 @@ Page({
       content: "确定要删除吗？",
       success: function(res) {
         if (res.confirm) {
-          that.data.items.splice(e.target.id, 1);
+
+          
+
+          console.log(e);
+          that.data.items.forEach(function (a, b, c) {
+            if (a.id ==e.currentTarget.id) {
+              a.cssShow = true;            
+              return;
+            }
+          })
+          var i=0;
+            that.data.allData.forEach(function (a2, b2, c2) {
+              if (e.currentTarget.id == a2.id) {
+                that.data.allData.splice(i, 1);
+                return;
+              }
+              i++;
+            })
+          console.log(that.data.items);  
           that.setData({
-            items: that.data.items,
-            allData: that.data.items,
+             items: that.data.items,
           });
-          that.fish();
+
+          setTimeout(function () {
+            i = 0;
+            that.data.items.forEach(function (a, b, c) {
+              if (a.id == e.currentTarget.id) {
+                that.data.items.splice(i, 1);
+                return;
+              }
+              i++
+            })
+            that.setData({
+              items: that.data.items,
+              allData: that.data.allData,
+            });
+            that.fish();
+          }, 1500);
         }
       }
     })
   },
-  // 拖拽
-  touchS_0: function(e) {
-    let that = this;
-    if (e.touches.length == 1) {
-      this.setData({
-        startY: e.touches[0].clientY
-      });
-    }
-  },
-  touchM_0: function(e) {
-    let that = this;
-    if (e.touches.length == 1) {
-      var moveY = e.touches[0].clientY;
-      var disY = this.data.startY - moveY;
-      that.setData({
-        items: this.data.items
-      });
 
-    }
-
-  }
 
 })
 //麦克风帧动画
@@ -802,15 +958,16 @@ function speaking() {
     })
   }, 200);
 }
-function dateFormat(dat,fmt) {
+
+function dateFormat(dat, fmt) {
   var o = {
-    "M+": dat.getMonth() + 1,                 //月份 
-    "d+": dat.getDate(),                    //日 
-    "h+": dat.getHours(),                   //小时 
-    "m+": dat.getMinutes(),                 //分 
-    "s+": dat.getSeconds(),                 //秒 
+    "M+": dat.getMonth() + 1, //月份 
+    "d+": dat.getDate(), //日 
+    "h+": dat.getHours(), //小时 
+    "m+": dat.getMinutes(), //分 
+    "s+": dat.getSeconds(), //秒 
     "q+": Math.floor((dat.getMonth() + 3) / 3), //季度 
-    "S": dat.getMilliseconds()             //毫秒 
+    "S": dat.getMilliseconds() //毫秒 
   };
   if (/(y+)/.test(fmt)) {
     fmt = fmt.replace(RegExp.$1, (dat.getFullYear() + "").substr(4 - RegExp.$1.length));
@@ -822,6 +979,7 @@ function dateFormat(dat,fmt) {
   }
   return fmt;
 }
+
 function difftime(time1, time2) {
   var date1 = new Date(time1);
   var date2 = new Date(time2);
@@ -840,10 +998,10 @@ function difftime(time1, time2) {
   return seconds;
 }
 
-function secondsToHMS(seconds){
-  var h = parseInt(seconds/60/60);
+function secondsToHMS(seconds) {
+  var h = parseInt(seconds / 60 / 60);
   var m = parseInt((seconds - h * 60 * 60) / 60);
-  var s = parseInt(seconds - h * 60 * 60-m*60);
+  var s = parseInt(seconds - h * 60 * 60 - m * 60);
 
   return (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s)
 }
